@@ -23,7 +23,20 @@ export default class App extends React.Component {
     });
   }
 
-  renderCharacter = ({ item: character }) => {
+  _keyExtractor(item) {
+    return item.id.toString();
+  }
+
+  renderListHeader() {
+    return (
+      <View style={styles.header}>
+        <Text style={styles.title}>RICK AND MORTY</Text>
+        <Text style={styles.title}>CHARACTERS</Text>
+      </View>
+    );
+  }
+
+  renderCharacter({ item: character }) {
     const { name, status, gender } = character;
     return (
       <Card>
@@ -34,8 +47,6 @@ export default class App extends React.Component {
     );
   }
 
-  _keyExtractor = item => item.id.toString();
-
   render() {
     return (
       <View style={styles.container}>
@@ -43,6 +54,8 @@ export default class App extends React.Component {
           data={this.state.characters}
           renderItem={this.renderCharacter}
           keyExtractor={this._keyExtractor}
+          ListHeaderComponent={this.renderListHeader}
+          stickyHeaderIndices={[0]}
         />
       </View>
     );
@@ -54,6 +67,16 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     flex: 1,
     backgroundColor: '#d9d9d9',
-    justifyContent: 'center',
   },
+  header: {
+    height: 80,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#02afc5'
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
+  }
 });
