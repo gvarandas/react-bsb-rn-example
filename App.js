@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, FlatList, Image } from 'react-native';
 
 import Card from './components/Card';
 
@@ -37,12 +37,19 @@ export default class App extends React.Component {
   }
 
   renderCharacter({ item: character }) {
-    const { name, status, gender } = character;
+    const { name, status, gender, image } = character;
     return (
       <Card>
-        <Text>Name: {name}</Text>
-        <Text>Gender: {gender}</Text>
-        <Text>Status: {status}</Text>
+        <View style={styles.character}>
+          <View style={styles.character__info}>
+            <Text>Name: {name}</Text>
+            <Text>Gender: {gender}</Text>
+            <Text>Status: {status}</Text>
+          </View>
+          <View>
+            <Image style={styles.character__avatar} source={{ uri: image }} />
+          </View>
+        </View>
       </Card>
     );
   }
@@ -78,5 +85,16 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
     color: '#fff',
+  },
+  character: {
+    flexDirection: 'row'
+  },
+  character__info: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  character__avatar: {
+    width: 60,
+    height: 60,
   }
 });
